@@ -1,0 +1,25 @@
+{
+  "name": "budget-site",
+  "version": "1.0.0",
+  "description": "",
+  "main": "server.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/larrykraus/budget-site.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/larrykraus/budget-site/issues"
+  },
+  "homepage": "https://github.com/larrykraus/budget-site#readme",
+  "dependencies": {
+    "body-parser": "^1.16.0",
+    "express": "^4.14.0",
+    "sequelizer": "^1.1.3"
+  }
+}

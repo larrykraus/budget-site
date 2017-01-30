@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Budget Website</title>
+	<link rel="stylesheet" type="text/css" href="styles/main.css">
+	
+	<script src="/bower_components/angular/angular.min.js"></script>
+  	<script src="/bower_components/angular-route/angular-route.min.js"></script>
+	<script src="/scripts/client.js"></script> 
+	<script src="../controllers/budgetController"></script>
+	<script src="../controllers/transactionController"></script>
+	
+</head>
+<body ng-app="budgetApp">
+	<main>
+   		<ng-view></ng-view>
+  	</main>
+
+
+  	<h3>Sign In (index)</h3>
+	<div class="g-signin2" data-onsuccess="onSignIn">
+	
+	</div>
+	<meta name="google-signin-client_id" content="719134852913-pmumed5sfpfpgqlcnv2dqb4hnl8opg2p.apps.googleusercontent.com">
+	<script src="https://apis.google.com/js/platform.js" async defer></script>
+</body>
+
+</html>
