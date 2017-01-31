@@ -27,18 +27,31 @@ function FrontController($scope, $http) {
 	$scope.signOut = signOut;
 	$scope.onSignIn = onSignIn;
 
-	function onSignIn(googleUser, $scope) {	
+	function onSignIn(googleUser, $scope) {
   		var auth2 = gapi.auth2.getAuthInstance();
-  		gapi.auth2.init();
-  		console.log(auth2.isSignedIn.get());
+  		var response1 = gapi.auth2.init();
 
-		if (auth2.isSignedIn.get()) {
-
-			var profile = auth2.currentUser.get().getBasicProfile();
-			var loggedInID = profile.getId();
-			console.log('ID: ' + loggedInID);
+  		var check = function(){
+    		if(auth2.isSignedIn.get() == true){
+        		var profile = auth2.currentUser.get().getBasicProfile();
+				var loggedInID = profile.getId();
+				//console.log('ID: ' + loggedInID);
+				UserCheck(loggedInID);
+    		}
+    		else {
+        		setTimeout(check, 1000); // check again in a second
+    		};
 		};
+		check();
 	};
+	function UserCheck(loggedInID) {
+		console.log('ID2: ' + loggedInID);
+		// $http.post('/api/artists/', vm.newArtist)
+		// 	.then(function(response) {
+		// 		var artist = response.data;
+		// 		$location.path("/artists/" + artist.id);
+		// 	});		
+	}
 
 	function signOut($scope) {
 		var auth2 = gapi.auth2.getAuthInstance();
@@ -47,6 +60,23 @@ function FrontController($scope, $http) {
     	});
 	};
 };
+
+
+
+//query database, see if that googleID already exists in user table
+// users.findOne({
+//	where: {googleid: loggedInID}
+// }).then(function (user) {
+//     console.log(user.get('name'));
+// });
+
+//if it does exist
+//send them to their budget page
+
+//if it does not exist
+//create a new row in user table with their info
+//and send them to their budget page
+
 
 
 
