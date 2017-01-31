@@ -1,56 +1,47 @@
-angular.module("budgetApp", ['ngRoute'])
-	.config(function($routeProvider, $locationProvider){
-		$locationProvider.html5Mode({
-			enabled: true,
-			requireBase: false
-		});
+var app = angular.module('budgetApp', ['ngRoute']);
 
-		$routeProvider
-			.when('/', {
-				templateUrl: '../templates/login.html'
-			})
-
-			.when('/budgets', {
-				templateUrl: '../templates/budgets.html'
-			})
-
-			.when('/transactions', {
-				templateUrl: '../templates/transactions.html'
-			})
+app.config(function($routeProvider, $locationProvider){
+	$locationProvider.html5Mode({
+		enabled: true,
+		requireBase: false
 	});
+	$routeProvider
+		.when('/', {
+			templateUrl: '../templates/login.html',
+			controller: frontController
+		})
+		.when('/budgets', {
+			templateUrl: '../templates/budgets.html',
+			controller: frontController
+		})
+		.when('/transactions', {
+			templateUrl: '../templates/transactions.html',
+			controller: frontController
+		})
+});
 
-function signOut() {
-	var auth2 = gapi.auth2.getAuthInstance();
-    auth2.signOut().then(function () {
-    	console.log('User signed out.');
-    });
-};
 
-function onSignIn(googleUser) {
-  	var id_token = googleUser.getAuthResponse().id_token;
+app.controller('frontController', function($scope, $routeParams){
+	function onSignIn(googleUser) {
+  		var auth2 = gapi.auth2.getAuthInstance();
+  		gapi.auth2.init();
 
-  	var auth2 = gapi.auth2.getAuthInstance();
-  	gapi.auth2.init();
-
-	if (auth2.isSignedIn.get()) {
-		var profile = auth2.currentUser.get().getBasicProfile();
-		console.log('ID: ' + profile.getId());
-		console.log('Full Name: ' + profile.getName());
-		console.log('Given Name: ' + profile.getGivenName());
-		console.log('Family Name: ' + profile.getFamilyName());
-		console.log('Image URL: ' + profile.getImageUrl());
-		console.log('Email: ' + profile.getEmail());
+		if (auth2.isSignedIn.get()) {
+			var profile = auth2.currentUser.get().getBasicProfile();
+			var loggedInID = profile.getId();
+			console.log('ID: ' + loggedInID);
+		};
 	};
 
-	var xhr = new XMLHttpRequest();
-	xhr.open('POST', '../../server.js');
-	xhr.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
-	xhr.onload = function() {
-		console.log('Signed in as: ' + xhr.responseText);
+	function signOut() {
+		var auth2 = gapi.auth2.getAuthInstance();
+    	auth2.signOut().then(function () {
+    		console.log('User signed out.');
+    	});
 	};
-	xhr.send('idtoken=' + id_token);
-};
 
+
+});
 
 
 

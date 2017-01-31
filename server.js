@@ -11,7 +11,6 @@ app.use(function(req, res){
 	res.sendFile(__dirname + '/public/index.html')
 });
 
-
 app.listen(3000, function() {
-	console.log("Listening on localhost:3000");
+	//console.log("Listening on localhost:3000");
 });

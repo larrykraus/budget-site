@@ -10,6 +10,7 @@
 	<script src="/scripts/client.js"></script> 
 	<script src="../controllers/budgetController"></script>
 	<script src="../controllers/transactionController"></script>
+	<script src="../controllers/userController"></script>
 	<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css" integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">	
 </head>
 <body ng-app="budgetApp">
@@ -17,10 +18,13 @@
    		<ng-view></ng-view>
   	</main>
 	
+
 	<h3>Sign In (index)</h3>
-	<div class="g-signin2" data-onsuccess="onSignIn">
+	<div class="g-signin2" data-onsuccess="onSignIn" ng-model="frontController.onSignIn">
 	</div>
-	<a href="#" onclick="signOut();">Sign out</a>
+	<div ng-model="frontController.signOut">
+		<a href="#" onclick="signOut();">Sign out</a>
+	</div>
 
 </body>
 
