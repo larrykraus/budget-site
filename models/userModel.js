@@ -3,6 +3,6 @@ module.exports = function(sequelize, Sequelize){
     userID: Sequelize.STRING,
     googleID: Sequelize.STRING
   });
-  return model;
+  return User;
 };
 

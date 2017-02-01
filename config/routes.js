@@ -4,7 +4,7 @@ var budgetController = require('../controllers/budgetController.js');
 var transactionController = require('../controllers/transactionController.js');
 var userController = require('../controllers/userController.js');
 
-router.get('/budgets', userController.checkID);
+router.post('/api/users', userController.checkID);
 
 
 module.exports = router;

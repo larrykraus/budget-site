@@ -26,6 +26,8 @@ FrontController.$inject = ['$scope', '$http'];
 function FrontController($scope, $http) {
 	$scope.signOut = signOut;
 	$scope.onSignIn = onSignIn;
+	var vm = this;
+	vm.sendUser = sendUser;
 
 	function onSignIn(googleUser, $scope) {
   		var auth2 = gapi.auth2.getAuthInstance();
@@ -35,23 +37,24 @@ function FrontController($scope, $http) {
     		if(auth2.isSignedIn.get() == true){
         		var profile = auth2.currentUser.get().getBasicProfile();
 				var loggedInID = profile.getId();
-				//console.log('ID: ' + loggedInID);
-				UserCheck(loggedInID);
+				sendUser($http, loggedInID);
     		}
     		else {
-        		setTimeout(check, 1000); // check again in a second
+        		setTimeout(check, 500); // check again in a second
     		};
 		};
 		check();
 	};
-	function UserCheck(loggedInID) {
-		console.log('ID2: ' + loggedInID);
-		// $http.post('/api/artists/', vm.newArtist)
-		// 	.then(function(response) {
-		// 		var artist = response.data;
-		// 		$location.path("/artists/" + artist.id);
-		// 	});		
-	}
+
+	function sendUser($http, loggedInID) {
+		console.log('googleID: ' + loggedInID);
+		var package = {loggedInID};
+		$http.post('/api/users/', package)
+			// .then(function(response) {
+			// 	var user = response.data;
+			// 	$location.path("/users/" + loggedInID);
+			// });		
+	};
 
 	function signOut($scope) {
 		var auth2 = gapi.auth2.getAuthInstance();
