@@ -21,9 +21,9 @@ app.config(function($routeProvider, $locationProvider){
 });
 
 app.controller('FrontController', FrontController);
-FrontController.$inject = ['$scope', '$http'];
+FrontController.$inject = ['$scope', '$http', '$location'];
 
-function FrontController($scope, $http) {
+function FrontController($scope, $http, $location) {
 	$scope.signOut = signOut;
 	$scope.onSignIn = onSignIn;
 	var vm = this;
@@ -46,14 +46,18 @@ function FrontController($scope, $http) {
 		check();
 	};
 
-	function sendUser($http, loggedInID) {
+	function sendUser($http, loggedInID, $location) {
 		console.log('googleID: ' + loggedInID);
 		var package = {loggedInID};
-		$http.post('/api/users/', package)
-			// .then(function(response) {
-			// 	var user = response.data;
-			// 	$location.path("/users/" + loggedInID);
-			// });		
+		vm.new_user = {
+			"googleID": loggedInID
+		};
+		$http.post('/api/users', vm.new_user)
+			.then(function(response) {
+				console.log(response);
+				var user = response.data;
+				$location.path("/budgets/" + loggedInID);
+			});		
 	};
 
 	function signOut($scope) {
@@ -64,21 +68,6 @@ function FrontController($scope, $http) {
 	};
 };
 
-
-
-//query database, see if that googleID already exists in user table
-// users.findOne({
-//	where: {googleid: loggedInID}
-// }).then(function (user) {
-//     console.log(user.get('name'));
-// });
-
-//if it does exist
-//send them to their budget page
-
-//if it does not exist
-//create a new row in user table with their info
-//and send them to their budget page
 
 
 

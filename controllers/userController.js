@@ -1,18 +1,33 @@
 var db = require('../models/');
 var User = db.models.User;
 
+//query database, see if that googleID already exists in user table
 // users.findOne({
 //  where: {googleid: loggedInID}
 // }).then(function (user) {
 //     console.log(user.get('name'));
 // });
 
+//if it does exist
+//send them to their budget page
+
+//if it does not exist
+//create a new row in user table with their info
+//and send them to their budget page
+
 
 function checkID(req, res) {
   var package = req.body;
-  res.json(package);
-  var loggedInID = package.loggedInID;
-  console.log(loggedInID);
+  //res.json(package);
+  var loggedInID = package.googleID;
+  console.log("here" + loggedInID);
+
+  console.log(req.body);
+
+   User.create(req.body).then(function(user){
+    if(!user) return error(res, "not saved");
+    res.json(user);
+  });
 
 };
 
@@ -26,9 +41,9 @@ function show(req, res) {
 };
 
 function create(req, res) {
-  User.create(req.body).then(function(artist){
-    // if(!artist) return error(res, "not saved");
-    res.json(artist);
+  User.create(req.body).then(function(user){
+    if(!user) return error(res, "not saved");
+    res.json(user);
   });
 };
 
