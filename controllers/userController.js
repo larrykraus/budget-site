@@ -18,16 +18,20 @@ var User = db.models.User;
 
 function checkID(req, res) {
   var package = req.body;
-  //res.json(package);
   var loggedInID = package.googleID;
-  console.log("here" + loggedInID);
-
   console.log(req.body);
 
-   User.create(req.body).then(function(user){
-    if(!user) return error(res, "not saved");
-    res.json(user);
-  });
+  // db.findOne({
+  //  where: {googleid: loggedInID}
+  // }).then(function (user) {
+  //     console.log("HERE! " + user);
+  // });
+
+
+  // User.create(req.body).then(function(user){
+  //   if(!user) return error(res, "not saved");
+  //   res.json(user);
+  // });
 
 };
 

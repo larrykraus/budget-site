@@ -56,7 +56,7 @@ function FrontController($scope, $http, $location) {
 			.then(function(response) {
 				console.log(response);
 				var user = response.data;
-				$location.path("/budgets/" + loggedInID);
+				$location.path("/budgets/" + user.id);
 			});		
 	};
 
