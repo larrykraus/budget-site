@@ -46,7 +46,7 @@ function FrontController($scope, $http, $location) {
 		check();
 	};
 
-	function sendUser($http, loggedInID, $location) {
+	function sendUser($http, loggedInID) {
 		console.log('googleID: ' + loggedInID);
 		var package = {loggedInID};
 		vm.new_user = {

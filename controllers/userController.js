@@ -21,17 +21,17 @@ function checkID(req, res) {
   var loggedInID = package.googleID;
   console.log(req.body);
 
-  // db.findOne({
-  //  where: {googleid: loggedInID}
+  // User.findOne({
+  //  where: {googleID: loggedInID}
   // }).then(function (user) {
-  //     console.log("HERE! " + user);
+  //     console.log("HERE! " + user.id);
   // });
 
 
-  // User.create(req.body).then(function(user){
-  //   if(!user) return error(res, "not saved");
-  //   res.json(user);
-  // });
+  User.create(req.body).then(function(user){
+    if(!user) return error(res, "not saved");
+    res.json(user);
+  });
 
 };
 

@@ -10,3 +10,8 @@
 p.alignRight {
 	float: right;
 }
+
+.progress-bar {
+	text-align: right;
+	padding-right: 6px;
+}
